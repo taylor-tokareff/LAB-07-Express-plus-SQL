@@ -7,12 +7,54 @@ const request = supertest(app);
 
 describe('API Routes', () => {
 
-  beforeAll(() => {
-    execSync('npm run setup-db');
-  });
-
   afterAll(async () => {
     return client.end();
+  });
+
+  // beforeAll(() => {
+  //   execSync('npm run setup-db');
+  // });
+
+  beforeAll(() => {
+    execSync('npm run recreate-tables');
+  });
+
+  let cyrax = {
+    name: 'Cyrax',
+    species: 'Cyborg',
+    url: 'https://en.wikipedia.org/wiki/Cyrax#/media/File:Cyrax_mk11.png',
+    introduced: 3,
+    isNinja: true,
+    fightingStyle: 'Ninjutsu',
+  };
+
+  let subZero = {
+    name: 'Sub-Zero',
+    species: 'Human',
+    url: 'https://en.wikipedia.org/wiki/Sub-Zero_(Mortal_Kombat)#/media/File:SubZeroMKXrender.png',
+    introduced: 1,
+    isNinja: true,
+    fightingStyle: 'Shotokan',
+  };
+
+  let goro = {
+    name: 'Goro',
+    species: 'Shokan',
+    url: 'https://en.wikipedia.org/wiki/Goro_(Mortal_Kombat)#/media/File:Goro_(Mortal_Kombat).png',
+    introduced: 1,
+    isNinja: false,
+    fightingStyle: 'Shokan',
+  };
+
+  it('Post cyrax to /api/mortalkombat', async () => {
+    const response = await request
+      .post('/api/mortalkombat')
+      .send(cyrax);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(cyrax);
+
+    cyrax = response.body;
   });
 
   const characters = [
@@ -184,7 +226,7 @@ describe('API Routes', () => {
   // If a GET request is made to /api/cats, does:
   // 1) the server respond with status of 200
   // 2) the body match the expected API data?
-  it('GET /api/mortalkombat', async () => {
+  it.skip('GET /api/mortalkombat', async () => {
     // act - make the request
     const response = await request.get('/api/mortalkombat');
 
@@ -199,7 +241,7 @@ describe('API Routes', () => {
   // If a GET request is made to /api/cats/:id, does:
   // 1) the server respond with status of 200
   // 2) the body match the expected API data for the cat with that id?
-  test('GET /api/mortalkombat/:id', async () => {
+  test.skip('GET /api/mortalkombat/:id', async () => {
     const response = await request.get('/api/mortalkombat/2');
     expect(response.status).toBe(200);
     expect(response.body).toEqual(characters[1]);
