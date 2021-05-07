@@ -141,7 +141,7 @@ describe('API Routes', () => {
   // If a GET request is made to /api/cats/:id, does:
   // 1) the server respond with status of 200
   // 2) the body match the expected API data for the cat with that id?
-  test.skip('GET /api/mortalkombat/:id', async () => {
+  test('GET /api/mortalkombat/:id', async () => {
     const response = await request.get('/api/mortalkombat/2');
     expect(response.status).toBe(200);
     expect(response.body).toEqual(characters[1]);
