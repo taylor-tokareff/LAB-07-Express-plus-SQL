@@ -89,6 +89,7 @@ describe('API Routes', () => {
       introduced: 3,
       isNinja: true,
       fightingStyle: 'Ninjutsu',
+      userId: 1
     },
 
     {
@@ -99,6 +100,7 @@ describe('API Routes', () => {
       introduced: 1,
       isNinja: true,
       fightingStyle: 'Shotokan',
+      userId: 1
     },
 
     {
@@ -109,14 +111,18 @@ describe('API Routes', () => {
       introduced: 1,
       isNinja: false,
       fightingStyle: 'Shokan',
+      userId: 1
+
     },
   ];
 
   // If a GET request is made to /api/cats, does:
   // 1) the server respond with status of 200
   // 2) the body match the expected API data?
-  it.skip('GET /api/mortalkombat', async () => {
+  it('GET /api/mortalkombat', async () => {
     // act - make the request
+    subZero.userId = user.id;
+    goro.userId = user.id;
     const response1 = await request.post('/api/mortalkombat').send(subZero);
     subZero = response1.body;
     const response2 = await request.post('/api/mortalkombat').send(goro);
@@ -128,7 +134,7 @@ describe('API Routes', () => {
     expect(response.status).toBe(200);
 
     // did it return the data we expected?
-    expect(response.body).toEqual(characters);
+    expect(response.body).toEqual(expect.arrayContaining(characters));
 
   });
 
