@@ -148,7 +148,7 @@ describe('API Routes', () => {
   });
 
 
-  it.skip('PUT updated mortalKombat to /api/mortalKombat/:id', async () => {
+  it('PUT updated mortalKombat to /api/mortalKombat/:id', async () => {
     let expectedCyrax = {
       id: 1,
       name: 'Cyrax',
@@ -157,6 +157,7 @@ describe('API Routes', () => {
       introduced: 2,
       isNinja: true,
       fightingStyle: 'Ninjutsu',
+      userId: 1
     };
 
     const newCyrax = {
@@ -167,6 +168,7 @@ describe('API Routes', () => {
       introduced: 2,
       isNinja: true,
       fightingStyle: 'Ninjutsu',
+      userId: 1
     };
 
     const response = await request
